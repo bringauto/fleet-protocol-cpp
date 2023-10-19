@@ -3,6 +3,10 @@
 
 #include <string_view>
 #include <string>
+#include <type_traits>
+
+#include <stdexcept>
+#include <cstring>
 
 #include <memory_management.h>
 
@@ -10,21 +14,26 @@
 
 namespace bringauto::fleet_protocol::cxx {
 
+
+
+template<typename T>
+concept FleetOsBufferCompatible = requires(T a)
+{
+	{ a.data };
+	{ a.size_in_bytes };
+};
+
 /**
  * It represents 'buffer' struct as a string.
  *
  */
+template <FleetOsBufferCompatible T>
 class BufferAsString {
 public:
-	BufferAsString(const ::buffer& buff):
-		buffer_(buff),
-		bufferAsString_ {static_cast<char*>(buff.data), buff.size_in_bytes}
-	{}
-
-	BufferAsString(const ::buffer* buff):
-			buffer_(*buff),
-			bufferAsString_ {static_cast<char*>(buff->data), buff->size_in_bytes}
-	{}
+	BufferAsString(T* buff):
+		buffer_ptr_{ buff },
+		bufferAsString_ { static_cast<char*>(buffer_ptr_->data), buffer_ptr_->size_in_bytes}
+	{};
 
 	/**
 	 * It returns std::string_view.
@@ -54,12 +63,25 @@ public:
 	 *
 	 * @param data
 	 */
-	void copyFromString(const std::string_view& data);
+	void copyFromString(const std::string_view& data, std::size_t numberOfBytes = 0) requires(!std::is_const_v<T>);
 
 private:
 
-	buffer buffer_ {};
+	T* buffer_ptr_ { nullptr };
 	std::string_view bufferAsString_ {};
 };
+
+template <FleetOsBufferCompatible T>
+void BufferAsString<T>::copyFromString(const std::string_view& data, const std::size_t numberOfBytes) requires(!std::is_const_v<T>){
+	if(buffer_ptr_->data == nullptr) {
+		throw std::out_of_range("Invalid buffer data section");
+	}
+	if(data.size() > buffer_ptr_->size_in_bytes) {
+		throw std::out_of_range("Cannot copy larger data into smaller buffer");
+	}
+	std::memcpy(buffer_ptr_->data, data.begin(), data.size());
+}
+
+
 
 }

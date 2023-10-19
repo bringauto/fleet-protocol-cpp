@@ -68,10 +68,10 @@ struct DeviceID {
 		if(::allocate(&device_id.device_role, device_role_.size()) != ::OK) {
 			throw std::runtime_error("Cannot allocate space for Device Role");
 		}
-		std::strncpy(static_cast<char*>(device_id.device_name.data),
+		std::memcpy(device_id.device_name.data,
 					 device_name_.c_str(),
 					 device_name_.size());
-		std::strncpy(static_cast<char*>(device_id.device_role.data),
+		std::memcpy(device_id.device_role.data,
 					 device_role_.c_str(),
 					 device_role_.size());
 		device_id.device_type = id_.device_type;
@@ -85,7 +85,7 @@ struct DeviceID {
 	 */
 	[[nodiscard]] std::string serializeInfo() const {
 		std::string ret {};
-		ret += "Device Name: " + device_name_ + ", Device Role: " + device_role_;
+		ret += "Device Name: " + device_name_ + ", Device Role: " + device_role_ + ", Priority: " + std::to_string(id_.priority);
 		return ret;
 	}
 
