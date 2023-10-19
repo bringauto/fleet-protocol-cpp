@@ -1,0 +1,3 @@
+[submodule "test/lib/Fleet-Protocol"]
+	path = test/lib/Fleet-Protocol
+	url = https://github.com/bringauto/Fleet-Protocol/
