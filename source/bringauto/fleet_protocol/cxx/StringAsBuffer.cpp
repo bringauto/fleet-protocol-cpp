@@ -6,6 +6,8 @@
 
 #include <stdexcept>
 
+#include <iostream>
+
 
 
 namespace bringauto::fleet_protocol::cxx {
@@ -14,7 +16,7 @@ void StringAsBuffer::createBufferAndCopyData(::buffer *buff, const std::string_v
 	if(::allocate(buff, data.size()) != OK) {
 		throw std::runtime_error("Cannot allocate memory for 'std::string' to 'buffer' conversion");
 	}
-	buff->size_in_bytes = data.size();
+	std::cout << "createBufferAndCOpyData Data size: " << data.size() << std::endl;
 	BufferAsString strbuff { buff };
 	strbuff.copyFromString(data);
 }
