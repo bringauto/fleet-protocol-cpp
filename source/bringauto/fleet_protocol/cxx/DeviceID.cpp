@@ -36,6 +36,10 @@ DeviceID::DeviceID(const device_identification& device_id):
 DeviceID::DeviceID(DeviceID &&c) noexcept:
 		device_role_(std::move(c.device_role_)),
 		device_name_(std::move(c.device_name_)),
-		id_(c.id_) {}
+		id_(c.id_)
+{
+	id_.device_role.data = const_cast<char *>(device_role_.c_str());
+	id_.device_name.data = const_cast<char *>(device_name_.c_str());
+}
 
 }

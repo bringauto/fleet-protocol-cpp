@@ -23,8 +23,8 @@ public:
 		}
 
 		for(int i = configData.size; i > 0; i--) {
-			BufferAsString key   { keyValuePtr->key };
-			BufferAsString value { keyValuePtr->value };
+			BufferAsString key   { &keyValuePtr->key };
+			BufferAsString value { &keyValuePtr->value };
 			keyValue.insert({ std::string(key.getStringView()), std::string(value.getStringView()) });
 			keyValuePtr++;
 		}
