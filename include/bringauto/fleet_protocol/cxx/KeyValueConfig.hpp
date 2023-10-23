@@ -18,7 +18,7 @@ public:
 	KeyValueConfig(const ::config configData) {
 		const int size                 = configData.size;
 		const ::key_value* keyValuePtr = configData.parameters;
-		if(size != 0) {
+		if(size <= 0) {
 			return;
 		}
 
