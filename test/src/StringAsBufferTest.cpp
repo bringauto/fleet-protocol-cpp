@@ -10,6 +10,8 @@ TEST(StringAsBuffer_tests, Create_buffer) {
     struct buffer buff;
     StringAsBuffer::createBufferAndCopyData(&buff, const_cast<char*>("abcd"));
 
-    EXPECT_EQ(buff.size_in_bytes, 4);
+    EXPECT_EQ(buff.size_in_bytes, 5);
     EXPECT_STREQ(static_cast<char*>(buff.data), "abcd");
+
+    ::deallocate(&buff);
 }

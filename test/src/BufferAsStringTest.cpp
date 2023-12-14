@@ -8,23 +8,25 @@ using namespace bringauto::fleet_protocol::cxx;
 
 TEST(BufferAsString_tests, Initialize) {
     struct buffer buff;
-    ::allocate(&buff, 4);
-    buff.data = const_cast<char*>("abcd");
+    ::allocate(&buff, 5);
+    std::memcpy(buff.data, "abcd", 5);
     BufferAsString buffAsString(&buff);
 
-    EXPECT_EQ(buff.size_in_bytes, 4);
+    EXPECT_EQ(buff.size_in_bytes, 5);
     EXPECT_STREQ(std::string(buffAsString.getStringView()).c_str(), "abcd");
     EXPECT_TRUE(*buffAsString.cbegin() == 'a');
-    EXPECT_STREQ(std::prev(buffAsString.cend()), "d");
+    EXPECT_STREQ(std::prev(buffAsString.cend()), "");
+    
+    ::deallocate(&buff);
 }
 
 
 TEST(BufferAsString_tests, Copy_string) {
-    struct buffer *buff;
-    ::allocate(buff, 2);
-    std::memcpy(buff->data, const_cast<char*>("ab"), 2);
-    BufferAsString buffAsString(buff);
-    EXPECT_EQ(buff->size_in_bytes, 2);
+    struct buffer buff;
+    ::allocate(&buff, 3);
+    std::memcpy(buff.data, "ab", 3);
+    BufferAsString buffAsString(&buff);
+    EXPECT_EQ(buff.size_in_bytes, 3);
     EXPECT_STREQ(std::string(buffAsString.getStringView()).c_str(), "ab");
 
     try {
@@ -33,15 +35,17 @@ TEST(BufferAsString_tests, Copy_string) {
         std::cout << e.what() << std::endl;
     }
 
-    EXPECT_EQ(buff->size_in_bytes, 2);
+    EXPECT_EQ(buff.size_in_bytes, 3);
     EXPECT_STREQ(std::string(buffAsString.getStringView()).c_str(), "cd");
+
+    ::deallocate(&buff);
 }
 
 
 TEST(BufferAsString_tests, Copy_string_buffer_no_data) {
     struct buffer buff;
-    ::allocate(&buff, 4);
     buff.data = nullptr;
+    buff.size_in_bytes = 5;
     BufferAsString buffAsString(&buff);
 
     bool failed = false;
@@ -57,8 +61,8 @@ TEST(BufferAsString_tests, Copy_string_buffer_no_data) {
 
 TEST(BufferAsString_tests, Copy_string_too_much_data) {
     struct buffer buff;
-    ::allocate(&buff, 4);
-    buff.data = const_cast<char*>("abcd");
+    ::allocate(&buff, 5);
+    std::memcpy(buff.data, "abcd", 5);
     BufferAsString buffAsString(&buff);
 
     bool failed = false;
@@ -69,4 +73,6 @@ TEST(BufferAsString_tests, Copy_string_too_much_data) {
         failed = true;
     }
     EXPECT_TRUE(failed);
+
+    ::deallocate(&buff);
 }
