@@ -62,18 +62,18 @@ struct DeviceID {
 	 */
 	[[nodiscard]] device_identification createStandaloneDeviceId() const {
 		device_identification device_id {};
-		if(::allocate(&device_id.device_name, device_name_.size()) != ::OK) {
+		if(::allocate(&device_id.device_name, device_name_.size() + 1) != ::OK) {
 			throw std::runtime_error("Cannot allocate space for Device Name");
 		}
-		if(::allocate(&device_id.device_role, device_role_.size()) != ::OK) {
+		if(::allocate(&device_id.device_role, device_role_.size() + 1) != ::OK) {
 			throw std::runtime_error("Cannot allocate space for Device Role");
 		}
 		std::memcpy(device_id.device_name.data,
 					 device_name_.c_str(),
-					 device_name_.size());
+					 device_name_.size() + 1);
 		std::memcpy(device_id.device_role.data,
 					 device_role_.c_str(),
-					 device_role_.size());
+					 device_role_.size() + 1);
 		device_id.device_type = id_.device_type;
 		device_id.module      = id_.module;
 		device_id.priority    = id_.priority;

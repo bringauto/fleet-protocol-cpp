@@ -26,10 +26,10 @@ TEST(DeviceID_tests, Constructor_from_device_id) {
     deviceID1.module = 1;
     deviceID1.device_type = 2;
     deviceID1.priority = 3;
-    ::allocate(&deviceID1.device_role, 5);
-    ::allocate(&deviceID1.device_name, 6);
-    std::memcpy(deviceID1.device_role.data, const_cast<char*>("Slave"), 5);
-    std::memcpy(deviceID1.device_name.data, const_cast<char*>("Device"), 6);
+    ::allocate(&deviceID1.device_role, 6);
+    ::allocate(&deviceID1.device_name, 7);
+    std::memcpy(deviceID1.device_role.data, "Slave", 6);
+    std::memcpy(deviceID1.device_name.data, "Device", 7);
 
     DeviceID device(deviceID1);
     device_identification deviceID2 = device.getDeviceId();
@@ -42,6 +42,9 @@ TEST(DeviceID_tests, Constructor_from_device_id) {
     std::string name(static_cast<char*>(deviceID2.device_name.data));
     EXPECT_STREQ(name.c_str(), "Device");
     EXPECT_STREQ(device.serializeInfo().c_str(), "Device Name: Device, Device Role: Slave, Priority: 3");
+
+    ::deallocate(&deviceID1.device_role);
+    ::deallocate(&deviceID1.device_name);
 }
 
 
@@ -72,4 +75,7 @@ TEST(DeviceID_tests, Standalone_device_id) {
     EXPECT_STREQ(role.c_str(), "Slave");
     std::string name(static_cast<char*>(deviceID.device_name.data));
     EXPECT_STREQ(name.c_str(), "Device");
+
+    ::deallocate(&deviceID.device_role);
+    ::deallocate(&deviceID.device_name);
 }
