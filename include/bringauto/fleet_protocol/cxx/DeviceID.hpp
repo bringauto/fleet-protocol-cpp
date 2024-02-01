@@ -65,8 +65,8 @@ struct DeviceID {
 	 * It returns string containing device identification information
 	 */
 	[[nodiscard]] std::string serializeInfo() const {
-		std::string ret {}; // TODO does this work?
-		std::string ret { "Device Name: " + device_name_ + ", Device Role: " + device_role_ + ", Priority: " + std::to_string(id_.priority) };
+		std::string ret {};
+		ret += "Device Name: " + device_name_ + ", Device Role: " + device_role_ + ", Priority: " + std::to_string(id_.priority);
 		return ret;
 	}
 

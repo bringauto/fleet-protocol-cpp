@@ -39,7 +39,7 @@ DeviceID::DeviceID(DeviceID &&c) noexcept:
 	id_.device_name.data = const_cast<char *>(device_name_.c_str());
 }
 
-device_identification DeviceID::createStandaloneDeviceId() {
+device_identification DeviceID::createStandaloneDeviceId() const {
 	device_identification device_id {};
 	if(::allocate(&device_id.device_name, device_name_.size() + 1) != ::OK) {
 		throw std::runtime_error("Cannot allocate space for Device Name");

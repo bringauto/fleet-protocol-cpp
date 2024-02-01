@@ -4,6 +4,6 @@ PROJECT(fleet-protocol C CXX)
 SET(CMAKE_CXX_STANDARD 20)
 
 
-FILE(GLOB_RECURSE memory_management_cpp_files "./src/*")
+FILE(GLOB_RECURSE memory_management_cpp_files "./source/*")
 ADD_LIBRARY(memory_management SHARED ${memory_management_cpp_files})
 TARGET_LINK_LIBRARIES(memory_management PUBLIC fleet-protocol::common_headers)
