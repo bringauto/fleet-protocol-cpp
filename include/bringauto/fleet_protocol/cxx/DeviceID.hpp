@@ -2,16 +2,15 @@
 
 #include <bringauto/fleet_protocol/cxx/BufferAsString.hpp>
 
-#include <string_view>
-
-#include <iostream>
-#include <string>
-#include <cstring>
-#include <stdexcept>
 
 #include <device_management.h>
 #include <general_error_codes.h>
 
+#include <string_view>
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <stdexcept>
 
 
 namespace bringauto::fleet_protocol::cxx {
@@ -60,32 +59,14 @@ struct DeviceID {
 	 * @return device_identification
 	 * @throw std::runtime_error if allocation of resources is not successful
 	 */
-	[[nodiscard]] device_identification createStandaloneDeviceId() const {
-		device_identification device_id {};
-		if(::allocate(&device_id.device_name, device_name_.size() + 1) != ::OK) {
-			throw std::runtime_error("Cannot allocate space for Device Name");
-		}
-		if(::allocate(&device_id.device_role, device_role_.size() + 1) != ::OK) {
-			throw std::runtime_error("Cannot allocate space for Device Role");
-		}
-		std::memcpy(device_id.device_name.data,
-					 device_name_.c_str(),
-					 device_name_.size() + 1);
-		std::memcpy(device_id.device_role.data,
-					 device_role_.c_str(),
-					 device_role_.size() + 1);
-		device_id.device_type = id_.device_type;
-		device_id.module      = id_.module;
-		device_id.priority    = id_.priority;
-		return device_id;
-	}
+	[[nodiscard]] device_identification createStandaloneDeviceId() const;
 
 	/**
-	 *
+	 * It returns string containing device identification information
 	 */
 	[[nodiscard]] std::string serializeInfo() const {
-		std::string ret {};
-		ret += "Device Name: " + device_name_ + ", Device Role: " + device_role_ + ", Priority: " + std::to_string(id_.priority);
+		std::string ret {}; // TODO does this work?
+		std::string ret { "Device Name: " + device_name_ + ", Device Role: " + device_role_ + ", Priority: " + std::to_string(id_.priority) };
 		return ret;
 	}
 

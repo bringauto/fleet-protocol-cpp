@@ -1,5 +1,6 @@
-
 #pragma once
+
+#include <memory_management.h>
 
 #include <string_view>
 #include <string>
@@ -8,13 +9,8 @@
 #include <stdexcept>
 #include <cstring>
 
-#include <memory_management.h>
-
-
 
 namespace bringauto::fleet_protocol::cxx {
-
-
 
 template<typename T>
 concept FleetOsBufferCompatible = requires(T a)
@@ -70,18 +66,5 @@ private:
 	T* buffer_ptr_ { nullptr };
 	std::string_view bufferAsString_ {};
 };
-
-template <FleetOsBufferCompatible T>
-void BufferAsString<T>::copyFromString(const std::string_view& data, const std::size_t numberOfBytes) requires(!std::is_const_v<T>){
-	if(buffer_ptr_->data == nullptr) {
-		throw std::out_of_range("Invalid buffer data section");
-	}
-	if(data.size() > buffer_ptr_->size_in_bytes) {
-		throw std::out_of_range("Cannot copy larger data into smaller buffer");
-	}
-	std::memcpy(buffer_ptr_->data, data.begin(), data.size());
-}
-
-
 
 }
