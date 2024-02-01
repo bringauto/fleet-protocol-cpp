@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <bringauto/fleet_protocol/cxx/KeyValueConfig.hpp>
+#include <memory_management.h>
 
 
 using namespace bringauto::fleet_protocol::cxx;

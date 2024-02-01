@@ -2,7 +2,6 @@
 
 #include <bringauto/fleet_protocol/cxx/BufferAsString.hpp>
 
-
 using namespace bringauto::fleet_protocol::cxx;
 
 
