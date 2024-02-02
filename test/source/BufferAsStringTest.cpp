@@ -29,7 +29,7 @@ TEST(BufferAsString_tests, Copy_string) {
     EXPECT_STREQ(std::string(buffAsString.getStringView()).c_str(), "ab");
 
     try {
-        buffAsString.copyFromString(std::string_view(const_cast<char*>("cd")));
+		buffAsString.copyFromString(std::string_view(const_cast<char *>("cd")));
     } catch(std::exception& e) {
         std::cout << e.what() << std::endl;
     }
@@ -49,7 +49,7 @@ TEST(BufferAsString_tests, Copy_string_buffer_no_data) {
 
     bool failed = false;
     try {
-        buffAsString.copyFromString(std::string("abcd"));
+		buffAsString.copyFromString(std::string("abcd"));
     } catch(std::exception& e) {
         EXPECT_STREQ(e.what(), "Invalid buffer data section");
         failed = true;
@@ -66,7 +66,7 @@ TEST(BufferAsString_tests, Copy_string_too_much_data) {
 
     bool failed = false;
     try {
-        buffAsString.copyFromString(std::string("abcdefgh"));
+		buffAsString.copyFromString(std::string("abcdefgh"));
     } catch(std::exception& e) {
         EXPECT_STREQ(e.what(), "Cannot copy larger data into smaller buffer");
         failed = true;
