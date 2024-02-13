@@ -31,10 +31,11 @@ IF (BRINGAUTO_PACKAGE)
     ENDIF ()
 ENDIF ()
 
-IF(NOT TARGET ${COMMON_HEADERS_TARGET}) ## TODO revisit
-    FIND_PACKAGE(fleet-protocol)
+#IF(NOT TARGET ${COMMON_HEADERS_TARGET}) ## TODO revisit
+    FIND_PACKAGE(fleet-protocol REQUIRED)
+    MESSAGE("Found again")
     # MESSAGE(FATAL_ERROR "TARGET ${COMMON_HEADERS_TARGET} is not defined!")
-ENDIF()
+#ENDIF()
 
 FILE(GLOB_RECURSE source_files ${CMAKE_CURRENT_LIST_DIR}/source/*)
 
