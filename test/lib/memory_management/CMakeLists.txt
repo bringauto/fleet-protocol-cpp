@@ -6,4 +6,4 @@ SET(CMAKE_CXX_STANDARD 20)
 
 FILE(GLOB_RECURSE memory_management_cpp_files "./source/*")
 ADD_LIBRARY(memory_management STATIC ${memory_management_cpp_files})
-TARGET_LINK_LIBRARIES(memory_management PUBLIC common-headers-interface)
+TARGET_LINK_LIBRARIES(memory_management PUBLIC fleet-protocol-interface::common-headers-interface)

@@ -3,8 +3,8 @@
 #include <bringauto/fleet_protocol/cxx/BufferAsString.hpp>
 
 
-#include <device_management.h>
-#include <general_error_codes.h>
+#include <fleet_protocol/common_headers/device_management.h>
+#include <fleet_protocol/common_headers/general_error_codes.h>
 
 #include <string_view>
 #include <iostream>

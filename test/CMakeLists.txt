@@ -14,8 +14,8 @@ TARGET_COMPILE_OPTIONS(fleet_protocol_cpp_tests PRIVATE -Wall -Wextra -Wpedantic
 TARGET_LINK_LIBRARIES(fleet_protocol_cpp_tests PUBLIC
                         ${COMMON_HEADERS_TARGET}
                         memory_management
-                        ${MODULE_MAINTAINER_TARGET_NAME}-object
-                        external_server
+                        ${MODULE_MAINTAINER_TARGET_NAME}-static
+                        fleet-protocol-interface::module-maintainer-external-server-interface
                         ${GTEST_LIBRARIES}
                         -fsanitize=address)
 INCLUDE(GoogleTest)
