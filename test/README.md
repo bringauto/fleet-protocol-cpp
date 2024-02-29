@@ -1,6 +1,9 @@
 # Daemon App - Tests
 
 ## Requirements
+CMLib
+
+or
 
 GTest
 ```
@@ -11,6 +14,8 @@ make
 make install
 
 ```
+> When not using CMLib, configure the project with `-DBRINGAUTO_SYSTEM_DEP=ON`
+
 
 ## Build
 ```

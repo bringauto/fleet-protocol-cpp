@@ -5,7 +5,6 @@
 #include <string_view>
 
 
-
 namespace bringauto::fleet_protocol::cxx {
 
 /**

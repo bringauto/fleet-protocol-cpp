@@ -1,7 +1,5 @@
 #pragma once
 
-#include <fleet_protocol/common_headers/memory_management.h>
-
 #include <string_view>
 #include <string>
 #include <type_traits>

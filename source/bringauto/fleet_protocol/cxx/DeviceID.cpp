@@ -1,5 +1,6 @@
 #include <bringauto/fleet_protocol/cxx/DeviceID.hpp>
 
+#include <fleet_protocol/common_headers/general_error_codes.h>
 
 namespace bringauto::fleet_protocol::cxx {
 

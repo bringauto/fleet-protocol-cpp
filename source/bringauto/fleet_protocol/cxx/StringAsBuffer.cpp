@@ -1,7 +1,7 @@
 #include <bringauto/fleet_protocol/cxx/StringAsBuffer.hpp>
 #include <bringauto/fleet_protocol/cxx/BufferAsString.hpp>
 
-#include <general_error_codes.h>
+#include <fleet_protocol/common_headers/general_error_codes.h>
 
 #include <stdexcept>
 #include <iostream>
