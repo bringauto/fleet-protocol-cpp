@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <bringauto/fleet_protocol/cxx/StringAsBuffer.hpp>
-#include <memory_management.h>
+#include <fleet_protocol/common_headers/memory_management.h>
 
 
 using namespace bringauto::fleet_protocol::cxx;

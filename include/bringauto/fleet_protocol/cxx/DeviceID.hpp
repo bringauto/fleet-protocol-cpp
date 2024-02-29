@@ -71,7 +71,7 @@ struct DeviceID {
 	}
 
 private:
-	device_identification id_ {0};
+	device_identification id_ {};
 	std::string device_role_ {};
 	std::string device_name_ {};
 };
