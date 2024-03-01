@@ -54,7 +54,7 @@ public:
 	[[nodiscard]] std::string_view::iterator cend() const { return bufferAsString_.cend(); }
 
 	/**
-	 *
+	 * It copies data from parameter to the buffer.
 	 * @param data
 	 */
 	void copyFromString(const std::string_view &data) requires(!std::is_const_v<T>);

@@ -71,7 +71,6 @@ IF (BRINGAUTO_PACKAGE)
     )
     SET(CPACK_GENERATOR ZIP)
     SET(CPACK_PACKAGE_CONTACT "BringAuto s.r.o. <maintainers@bringauto.com>")
-    SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "BringAuto s.r.o <maintainers@bringauto.com>")
     INCLUDE(CPack)
 ENDIF ()
 
