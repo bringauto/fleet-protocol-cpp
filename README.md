@@ -5,11 +5,8 @@ This project provides a set of C++ classes to help with the implementation of th
 ## Requirements
 
 * CMLib
-
-or
-
-* Fleet protocol [>=v2.0.0]
-> When not using CMLib, configure the project with `-DBRINGAUTO_SYSTEM_DEP=ON`
+* Fleet Protocol [>=v2.0.0]
+> When using BA_PACKAGER the Fleet Protocol is automatically downloaded, else configure the project with `-DBRINGAUTO_SYSTEM_DEP=ON`
 
 ## Usage
 
