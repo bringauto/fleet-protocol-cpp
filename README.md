@@ -6,7 +6,7 @@ This project provides a set of C++ classes to help with the implementation of th
 
 * CMLib
 * Fleet Protocol [>=v2.0.0]
-> When using BA_PACKAGER the Fleet Protocol is automatically downloaded, else configure the project with `-DBRINGAUTO_SYSTEM_DEP=ON`
+> When using BA_PACKAGER the Fleet Protocol is automatically downloaded, else configure the project with CMake option `-DBRINGAUTO_SYSTEM_DEP=ON`
 
 ## Usage
 
