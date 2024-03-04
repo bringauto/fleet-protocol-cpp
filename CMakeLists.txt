@@ -24,7 +24,7 @@ OPTION(BRINGAUTO_INSTALL "Enable install" OFF)
 OPTION(BRINGAUTO_SYSTEM_DEP "Enable system dependencies" OFF)
 OPTION(BRINGAUTO_SAMPLES "Enable build of sample app, not used in project" OFF)
 
-IF (BRINGAUTO_SYSTEM_DEP)
+IF (NOT BRINGAUTO_SYSTEM_DEP)
     FIND_PACKAGE(CMLIB
             COMPONENTS STORAGE
             REQUIRED
