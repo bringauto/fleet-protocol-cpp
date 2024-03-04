@@ -1,24 +1,17 @@
-
 #pragma once
 
 #include <string_view>
 #include <string>
 #include <type_traits>
-
+#include <concepts>
 #include <stdexcept>
 #include <cstring>
-
-#include <memory_management.h>
-
 
 
 namespace bringauto::fleet_protocol::cxx {
 
-
-
-template<typename T>
-concept FleetOsBufferCompatible = requires(T a)
-{
+template <typename T>
+concept FleetOsBufferCompatible = requires(T a) {
 	{ a.data };
 	{ a.size_in_bytes };
 };
@@ -31,9 +24,8 @@ template <FleetOsBufferCompatible T>
 class BufferAsString {
 public:
 	BufferAsString(T* buff):
-		buffer_ptr_{ buff },
-		bufferAsString_ { static_cast<char*>(buffer_ptr_->data), buffer_ptr_->size_in_bytes}
-	{};
+		buffer_ptr_{buff},
+		bufferAsString_{static_cast<char*>(buffer_ptr_->data), buffer_ptr_->size_in_bytes} {};
 
 	/**
 	 * It returns std::string_view.
@@ -60,19 +52,19 @@ public:
 	[[nodiscard]] std::string_view::iterator cend() const { return bufferAsString_.cend(); }
 
 	/**
-	 *
+	 * It copies data from parameter to the buffer.
 	 * @param data
 	 */
-	void copyFromString(const std::string_view& data, std::size_t numberOfBytes = 0) requires(!std::is_const_v<T>);
+	void copyFromString(const std::string_view& data) requires(!std::is_const_v<T>);
 
 private:
-
-	T* buffer_ptr_ { nullptr };
-	std::string_view bufferAsString_ {};
+	T* buffer_ptr_{nullptr};
+	std::string_view bufferAsString_{};
 };
 
+
 template <FleetOsBufferCompatible T>
-void BufferAsString<T>::copyFromString(const std::string_view& data, const std::size_t numberOfBytes) requires(!std::is_const_v<T>){
+void BufferAsString<T>::copyFromString(const std::string_view& data) requires(!std::is_const_v<T>) {
 	if(buffer_ptr_->data == nullptr) {
 		throw std::out_of_range("Invalid buffer data section");
 	}
@@ -81,7 +73,4 @@ void BufferAsString<T>::copyFromString(const std::string_view& data, const std::
 	}
 	std::memcpy(buffer_ptr_->data, data.begin(), data.size());
 }
-
-
-
 }

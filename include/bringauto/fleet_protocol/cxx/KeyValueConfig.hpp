@@ -1,12 +1,11 @@
 #pragma once
 
-#include <external_server_structures.h>
-
 #include <bringauto/fleet_protocol/cxx/BufferAsString.hpp>
+
+#include <fleet_protocol/module_maintainer/external_server/external_server_structures.h>
 
 #include <map>
 #include <string>
-
 
 
 namespace bringauto::fleet_protocol::cxx {

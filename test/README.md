@@ -1,8 +1,8 @@
 # Daemon App - Tests
 
 ## Requirements
-
-GTest
+* CMLib
+* GTest
 ```
 apt install googletest
 cd /usr/src/googletest
@@ -11,6 +11,8 @@ make
 make install
 
 ```
+> When using BA_PACKAGER, GTest is automatically downloaded, else configure the project with CMake option 
+> `-DBRINGAUTO_SYSTEM_DEP=ON`
 
 ## Build
 ```
