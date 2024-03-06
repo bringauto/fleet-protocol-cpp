@@ -11,18 +11,18 @@ TEST(KeyValueConfig_tests, Initialize) {
 	::config configData;
 	configData.size = 3;
 	key_value params[3];
-	::allocate(&params[0].key, 5);
-	std::memcpy(params[0].key.data, "Key1", 5);
-	::allocate(&params[0].value, 7);
-	std::memcpy(params[0].value.data, "Value1", 7);
-	::allocate(&params[1].key, 5);
-	std::memcpy(params[1].key.data, "Key2", 5);
-	::allocate(&params[1].value, 7);
-	std::memcpy(params[1].value.data, "Value2", 7);
-	::allocate(&params[2].key, 5);
-	std::memcpy(params[2].key.data, "Key3", 5);
-	::allocate(&params[2].value, 7);
-	std::memcpy(params[2].value.data, "Value3", 7);
+	::allocate(&params[0].key, 4);
+	std::memcpy(params[0].key.data, "Key1", 4);
+	::allocate(&params[0].value, 6);
+	std::memcpy(params[0].value.data, "Value1", 6);
+	::allocate(&params[1].key, 4);
+	std::memcpy(params[1].key.data, "Key2", 4);
+	::allocate(&params[1].value, 6);
+	std::memcpy(params[1].value.data, "Value2", 6);
+	::allocate(&params[2].key, 4);
+	std::memcpy(params[2].key.data, "Key3", 4);
+	::allocate(&params[2].value, 6);
+	std::memcpy(params[2].value.data, "Value3", 6);
 	configData.parameters = params;
 	KeyValueConfig kvConfig(configData);
 
@@ -44,10 +44,10 @@ TEST(KeyValueConfig_tests, Zero_size) {
 	::config configData;
 	configData.size = 0;
 	key_value params[1];
-	::allocate(&params[0].key, 4);
-	std::memcpy(params[0].key.data, "Key", 4);
-	::allocate(&params[0].value, 6);
-	std::memcpy(params[0].value.data, "Value", 6);
+	::allocate(&params[0].key, 3);
+	std::memcpy(params[0].key.data, "Key", 3);
+	::allocate(&params[0].value, 5);
+	std::memcpy(params[0].value.data, "Value", 5);
 	configData.parameters = params;
 	KeyValueConfig kvConfig(configData);
 

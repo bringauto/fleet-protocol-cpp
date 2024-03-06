@@ -10,10 +10,9 @@
 namespace bringauto::fleet_protocol::cxx {
 
 void StringAsBuffer::createBufferAndCopyData(::buffer* buff, const std::string_view& data) {
-	if(::allocate(buff, data.size() + 1) != OK) {
+	if(::allocate(buff, data.size()) != OK) {
 		throw std::runtime_error("Cannot allocate memory for 'std::string' to 'buffer' conversion");
 	}
-	std::cout << "createBufferAndCOpyData Data size: " << data.size() + 1 << std::endl;
 	BufferAsString strbuff{buff};
 	strbuff.copyFromString(data);
 }

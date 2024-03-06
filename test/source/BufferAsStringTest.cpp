@@ -8,14 +8,14 @@ using namespace bringauto::fleet_protocol::cxx;
 
 TEST(BufferAsString_tests, Initialize) {
 	struct buffer buff;
-	::allocate(&buff, 5);
-	std::memcpy(buff.data, "abcd", 5);
+	::allocate(&buff, 4);
+	std::memcpy(buff.data, "abcd", 4);
 	BufferAsString buffAsString(&buff);
 
-	EXPECT_EQ(buff.size_in_bytes, 5);
+	EXPECT_EQ(buff.size_in_bytes, 4);
 	EXPECT_STREQ(std::string(buffAsString.getStringView()).c_str(), "abcd");
 	EXPECT_TRUE(*buffAsString.cbegin() == 'a');
-	EXPECT_STREQ(std::prev(buffAsString.cend()), "");
+	EXPECT_TRUE(*std::prev(buffAsString.cend()) == 'd');
 
 	::deallocate(&buff);
 }
@@ -45,7 +45,7 @@ TEST(BufferAsString_tests, Copy_string) {
 TEST(BufferAsString_tests, Copy_string_buffer_no_data) {
 	struct buffer buff;
 	buff.data = nullptr;
-	buff.size_in_bytes = 5;
+	buff.size_in_bytes = 4;
 	BufferAsString buffAsString(&buff);
 
 	bool failed = false;
@@ -61,8 +61,8 @@ TEST(BufferAsString_tests, Copy_string_buffer_no_data) {
 
 TEST(BufferAsString_tests, Copy_string_too_much_data) {
 	struct buffer buff;
-	::allocate(&buff, 5);
-	std::memcpy(buff.data, "abcd", 5);
+	::allocate(&buff, 4);
+	std::memcpy(buff.data, "abcd", 4);
 	BufferAsString buffAsString(&buff);
 
 	bool failed = false;
