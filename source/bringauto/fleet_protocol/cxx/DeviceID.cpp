@@ -19,15 +19,15 @@ DeviceID::DeviceID(int module, unsigned int device_type, unsigned int priority,
 }
 
 DeviceID::DeviceID(const device_identification& device_id):
-	device_role_(static_cast<char*>(device_id.device_role.data), device_id.device_role.size_in_bytes - 1),
-	device_name_(static_cast<char*>(device_id.device_name.data), device_id.device_name.size_in_bytes - 1) {
+	device_role_(static_cast<char*>(device_id.device_role.data), device_id.device_role.size_in_bytes),
+	device_name_(static_cast<char*>(device_id.device_name.data), device_id.device_name.size_in_bytes) {
 	id_.device_type = device_id.device_type;
 	id_.module = device_id.module;
 	id_.priority = device_id.priority;
 	id_.device_role.data = const_cast<char*>(device_role_.c_str());
-	id_.device_role.size_in_bytes = device_role_.size() + 1;
+	id_.device_role.size_in_bytes = device_role_.size();
 	id_.device_name.data = const_cast<char*>(device_name_.c_str());
-	id_.device_name.size_in_bytes = device_name_.size() + 1;
+	id_.device_name.size_in_bytes = device_name_.size();
 }
 
 DeviceID::DeviceID(DeviceID&& c) noexcept:
@@ -40,18 +40,18 @@ DeviceID::DeviceID(DeviceID&& c) noexcept:
 
 device_identification DeviceID::createStandaloneDeviceId() const {
 	device_identification device_id{};
-	if(::allocate(&device_id.device_name, device_name_.size() + 1) != ::OK) {
+	if(::allocate(&device_id.device_name, device_name_.size()) != ::OK) {
 		throw std::runtime_error("Cannot allocate space for Device Name");
 	}
-	if(::allocate(&device_id.device_role, device_role_.size() + 1) != ::OK) {
+	if(::allocate(&device_id.device_role, device_role_.size()) != ::OK) {
 		throw std::runtime_error("Cannot allocate space for Device Role");
 	}
 	std::memcpy(device_id.device_name.data,
 	            device_name_.c_str(),
-	            device_name_.size() + 1);
+	            device_name_.size());
 	std::memcpy(device_id.device_role.data,
 	            device_role_.c_str(),
-	            device_role_.size() + 1);
+	            device_role_.size());
 	device_id.device_type = id_.device_type;
 	device_id.module = id_.module;
 	device_id.priority = id_.priority;
