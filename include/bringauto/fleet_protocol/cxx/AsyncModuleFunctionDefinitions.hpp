@@ -29,7 +29,7 @@ inline static const async_function_execution::FunctionDefinition sendStatusCondi
 inline static const async_function_execution::FunctionDefinition generateCommandAsync {
 	async_function_execution::FunctionId { 3 },
 	async_function_execution::Return { ConvertibleBufferReturn {} },
-	async_function_execution::Arguments { ConvertibleBuffer {}, ConvertibleBuffer {}, uint32_t {} }
+	async_function_execution::Arguments { ConvertibleBuffer {}, ConvertibleBuffer {}, ConvertibleBuffer {}, uint32_t {} }
 };
 
 inline static const async_function_execution::FunctionDefinition aggregateStatusAsync {
