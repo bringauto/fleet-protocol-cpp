@@ -22,8 +22,10 @@ struct ConvertibleBuffer final {
 		return std::span {reinterpret_cast<const uint8_t *>(buffer.data), buffer.size_in_bytes};
 	}
 	void deserialize(std::span<const uint8_t> bytes) {
-		buffer.data = const_cast<uint8_t *>(bytes.data());
-		buffer.size_in_bytes = bytes.size();
+		auto size = bytes.size();
+		buffer.data = new uint8_t[size];
+		buffer.size_in_bytes = size;
+		std::memcpy(buffer.data, bytes.data(), size);
 	}
 };
 

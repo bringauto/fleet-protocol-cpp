@@ -36,7 +36,6 @@ struct ConvertibleBufferReturn final {
 		buffer.data = new uint8_t[size];
 		buffer.size_in_bytes = size;
 		std::memcpy(buffer.data, bytes.data() + sizeof(int), size);
-		buffer.size_in_bytes = size;
 	}
 };
 
