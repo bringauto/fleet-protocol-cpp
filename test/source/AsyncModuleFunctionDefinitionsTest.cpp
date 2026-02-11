@@ -1,8 +1,8 @@
-#include <bringauto/fleet_protocol/cxx/AsyncModuleFunctionDefinitions.hpp>
+#include <bringauto/fleet_protocol/async_function_execution_definitions/AsyncModuleFunctionDefinitions.hpp>
 
 #include <gtest/gtest.h>
 
-using namespace bringauto::fleet_protocol::cxx;
+using namespace bringauto::fleet_protocol::async_function_execution_definitions;
 
 
 TEST(AsyncModuleFunctionDefinitions_tests, FunctionDefinitionsExist) {
