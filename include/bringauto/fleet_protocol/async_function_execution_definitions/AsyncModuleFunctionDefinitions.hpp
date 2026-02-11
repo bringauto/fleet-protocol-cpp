@@ -1,12 +1,12 @@
 #pragma once
 
-#include <bringauto/fleet_protocol/cxx/ConvertibleBuffer.hpp>
-#include <bringauto/fleet_protocol/cxx/ConvertibleBufferReturn.hpp>
+#include <bringauto/fleet_protocol/async_function_execution_definitions/ConvertibleBuffer.hpp>
+#include <bringauto/fleet_protocol/async_function_execution_definitions/ConvertibleBufferReturn.hpp>
 
 #include <bringauto/async_function_execution/AsyncFunctionExecutor.hpp>
 
 
-namespace bringauto::fleet_protocol::cxx {
+namespace bringauto::fleet_protocol::async_function_execution_definitions {
 
 inline static const async_function_execution::FunctionDefinition getModuleNumberAsync {
 	async_function_execution::FunctionId { 0 },
