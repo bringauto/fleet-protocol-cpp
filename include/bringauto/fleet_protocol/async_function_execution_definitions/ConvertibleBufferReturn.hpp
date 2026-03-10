@@ -31,7 +31,13 @@ struct ConvertibleBufferReturn final {
 		return serialized_;
 	}
 	void deserialize(std::span<const uint8_t> bytes) {
-		if(bytes.size() < sizeof(int)) { return; }
+		if(bytes.size() < sizeof(int)) {
+			returnCode = 0;
+			data_.clear();
+			buffer.data = nullptr;
+			buffer.size_in_bytes = 0;
+			return;
+		}
 		std::memcpy(&returnCode, bytes.data(), sizeof(int));
 		auto payload = bytes.subspan(sizeof(int));
 		data_.assign(payload.begin(), payload.end());
