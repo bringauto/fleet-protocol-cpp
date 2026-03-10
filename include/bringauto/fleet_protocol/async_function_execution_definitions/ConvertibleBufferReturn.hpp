@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <cstring>
 #include <span>
+#include <vector>
 
 
 
@@ -22,21 +23,25 @@ struct ConvertibleBufferReturn final {
 	ConvertibleBufferReturn(int code, struct ::buffer buff) : returnCode(code), buffer(buff) {}
 
 	std::span<const uint8_t> serialize() const {
-		size_t total_size = sizeof(int) + buffer.size_in_bytes;
-		uint8_t* data = new uint8_t[total_size];
-		std::memcpy(data, &returnCode, sizeof(int));
-		std::memcpy(data + sizeof(int), buffer.data, buffer.size_in_bytes);
-		return {data, total_size};
+		serialized_.resize(sizeof(int) + buffer.size_in_bytes);
+		std::memcpy(serialized_.data(), &returnCode, sizeof(int));
+		if(buffer.size_in_bytes > 0) {
+			std::memcpy(serialized_.data() + sizeof(int), buffer.data, buffer.size_in_bytes);
+		}
+		return serialized_;
 	}
 	void deserialize(std::span<const uint8_t> bytes) {
-		auto size = bytes.size();
-		if (size < sizeof(int)) return;
+		if(bytes.size() < sizeof(int)) { return; }
 		std::memcpy(&returnCode, bytes.data(), sizeof(int));
-		size -= sizeof(int);
-		buffer.data = new uint8_t[size];
-		buffer.size_in_bytes = size;
-		std::memcpy(buffer.data, bytes.data() + sizeof(int), size);
+		auto payload = bytes.subspan(sizeof(int));
+		data_.assign(payload.begin(), payload.end());
+		buffer.data = data_.data();
+		buffer.size_in_bytes = data_.size();
 	}
+
+private:
+	mutable std::vector<uint8_t> serialized_ {};
+	std::vector<uint8_t> data_ {};
 };
 
 }

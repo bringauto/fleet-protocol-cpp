@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <span>
+#include <vector>
 
 
 
@@ -17,16 +18,18 @@ struct ConvertibleBuffer final {
 	struct ::buffer buffer {};
 	ConvertibleBuffer() = default;
 	ConvertibleBuffer(struct ::buffer buff) : buffer(buff) {}
-	
+
 	std::span<const uint8_t> serialize() const {
 		return std::span {reinterpret_cast<const uint8_t *>(buffer.data), buffer.size_in_bytes};
 	}
 	void deserialize(std::span<const uint8_t> bytes) {
-		auto size = bytes.size();
-		buffer.data = new uint8_t[size];
-		buffer.size_in_bytes = size;
-		std::memcpy(buffer.data, bytes.data(), size);
+		data_.assign(bytes.begin(), bytes.end());
+		buffer.data = data_.data();
+		buffer.size_in_bytes = data_.size();
 	}
+
+private:
+	std::vector<uint8_t> data_ {};
 };
 
 }
